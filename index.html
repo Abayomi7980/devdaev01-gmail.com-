@@ -1,0 +1,805 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Samuel Abayomi — UI/UX Designer & Frontend Developer</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#07070f;--bg2:#0e0e1c;--bg3:#13132a;
+  --accent:#7c3aed;--accent2:#a78bfa;--accent3:#c4b5fd;
+  --text:#f0efff;--text2:#9090b8;--text3:#5050a0;
+  --border:rgba(124,58,237,0.18);--border2:rgba(124,58,237,0.35);
+  --card:#0e0e1c;--r:14px;--r2:10px;--r3:50px;
+}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+.container{max-width:1100px;margin:0 auto;padding:0 24px}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:18px 0;transition:all .4s}
+nav.scrolled{background:rgba(7,7,15,0.85);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);padding:14px 0}
+.nav-inner{display:flex;align-items:center;justify-content:space-between}
+.logo{font-size:1.25rem;font-weight:700;letter-spacing:-.5px}
+.logo span{color:var(--accent2)}
+.nav-links{display:flex;gap:2rem;list-style:none}
+.nav-links a{font-size:.875rem;color:var(--text2);transition:color .3s}
+.nav-links a:hover{color:var(--text)}
+.nav-cta{background:var(--accent);color:#fff;padding:9px 22px;border-radius:var(--r3);font-size:.875rem;font-weight:500;transition:all .3s}
+.nav-cta:hover{background:var(--accent2);transform:translateY(-1px)}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px}
+.hamburger span{width:22px;height:2px;background:var(--text);border-radius:2px;transition:all .3s}
+.mobile-menu{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:var(--bg);z-index:99;flex-direction:column;align-items:center;justify-content:center;gap:2rem}
+.mobile-menu.open{display:flex}
+.mobile-menu a{font-size:1.5rem;font-weight:600}
+
+/* HERO */
+.hero{min-height:100vh;display:flex;align-items:center;padding:100px 0 60px;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:-200px;right:-200px;width:600px;height:600px;background:radial-gradient(circle,rgba(124,58,237,.15) 0%,transparent 70%);pointer-events:none}
+.hero::after{content:'';position:absolute;bottom:-100px;left:-100px;width:400px;height:400px;background:radial-gradient(circle,rgba(124,58,237,.08) 0%,transparent 70%);pointer-events:none}
+.hero-inner{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(124,58,237,.12);border:1px solid var(--border2);padding:6px 16px;border-radius:var(--r3);font-size:.8rem;color:var(--accent3);margin-bottom:1.5rem}
+.hero-badge::before{content:'';width:7px;height:7px;background:var(--accent2);border-radius:50%;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+.hero h1{font-size:clamp(2.2rem,5vw,3.5rem);font-weight:800;line-height:1.1;letter-spacing:-1.5px;margin-bottom:1.25rem}
+.hero h1 .line2{color:var(--accent2)}
+.hero-bio{font-size:1rem;color:var(--text2);line-height:1.75;margin-bottom:2rem;max-width:480px}
+.hero-btns{display:flex;gap:14px;flex-wrap:wrap}
+.btn-primary{background:var(--accent);color:#fff;padding:13px 28px;border-radius:var(--r3);font-weight:600;font-size:.9rem;transition:all .3s;border:none;cursor:pointer}
+.btn-primary:hover{background:var(--accent2);transform:translateY(-2px);box-shadow:0 8px 25px rgba(124,58,237,.35)}
+.btn-outline{background:transparent;color:var(--text);padding:12px 27px;border-radius:var(--r3);font-weight:500;font-size:.9rem;border:1px solid var(--border2);transition:all .3s;cursor:pointer}
+.btn-outline:hover{border-color:var(--accent2);color:var(--accent3);transform:translateY(-2px)}
+.hero-stats{display:flex;gap:32px;margin-top:2.5rem}
+.stat-num{font-size:1.6rem;font-weight:800;color:var(--accent3)}
+.stat-label{font-size:.75rem;color:var(--text3);text-transform:uppercase;letter-spacing:.8px}
+.hero-img-wrap{display:flex;justify-content:center;align-items:center}
+.avatar-outer{width:340px;height:340px;border-radius:40% 60% 60% 40%/40% 40% 60% 60%;border:2px solid var(--border2);display:flex;align-items:center;justify-content:center;animation:morph 8s ease-in-out infinite;background:var(--bg2)}
+@keyframes morph{0%,100%{border-radius:40% 60% 60% 40%/40% 40% 60% 60%}50%{border-radius:60% 40% 40% 60%/60% 60% 40% 40%}}
+.avatar-inner{width:290px;height:290px;border-radius:40% 60% 60% 40%/40% 40% 60% 60%;background:linear-gradient(135deg,var(--bg3),rgba(124,58,237,.2));display:flex;align-items:center;justify-content:center;animation:morph2 8s ease-in-out infinite;overflow:hidden}
+@keyframes morph2{0%,100%{border-radius:40% 60% 60% 40%/40% 40% 60% 60%}50%{border-radius:60% 40% 40% 60%/60% 60% 40% 40%}}
+.floating-tag{position:absolute;background:var(--bg2);border:1px solid var(--border2);padding:8px 14px;border-radius:var(--r2);font-size:.75rem;font-weight:600;white-space:nowrap;animation:float 3s ease-in-out infinite}
+.tag1{top:10%;right:-30px}.tag2{bottom:15%;left:-40px;animation-delay:1s}.tag3{top:50%;right:-50px;animation-delay:.5s}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+
+/* SECTIONS */
+section{padding:90px 0}
+.section-label{font-size:.75rem;font-weight:600;color:var(--accent2);text-transform:uppercase;letter-spacing:2px;margin-bottom:.75rem}
+.section-title{font-size:clamp(1.8rem,4vw,2.6rem);font-weight:800;letter-spacing:-1px;line-height:1.2;margin-bottom:1rem}
+.section-sub{color:var(--text2);max-width:500px;font-size:.95rem;line-height:1.75}
+.section-header{margin-bottom:3.5rem}
+.fade-up{opacity:0;transform:translateY(30px);transition:all .7s cubic-bezier(.22,1,.36,1)}
+.fade-up.visible{opacity:1;transform:translateY(0)}
+
+/* ABOUT */
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:start}
+.about-text p{color:var(--text2);line-height:1.8;margin-bottom:1rem;font-size:.95rem}
+.about-text p strong{color:var(--accent3)}
+.mission-box{background:var(--bg2);border:1px solid var(--border);border-left:3px solid var(--accent);padding:20px 24px;border-radius:var(--r2);margin:1.5rem 0;font-size:.9rem;color:var(--text2);line-height:1.75}
+.about-skills-quick{display:flex;flex-direction:column;gap:14px}
+.skill-bar-item label{display:flex;justify-content:space-between;font-size:.82rem;color:var(--text2);margin-bottom:6px}
+.skill-bar-item label span{color:var(--accent3);font-weight:600}
+.bar-bg{background:var(--bg3);border-radius:4px;height:6px;overflow:hidden}
+.bar-fill{height:100%;border-radius:4px;background:linear-gradient(90deg,var(--accent),var(--accent2));width:0;transition:width 1.2s cubic-bezier(.22,1,.36,1)}
+
+/* SKILLS */
+.skills-wrap{background:var(--bg2)}
+.skills-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:20px}
+.skill-card{background:var(--bg3);border:1px solid var(--border);border-radius:var(--r);padding:24px;transition:all .35s;position:relative;overflow:hidden}
+.skill-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--accent),var(--accent2));transform:scaleX(0);transform-origin:left;transition:transform .4s}
+.skill-card:hover{border-color:var(--border2);transform:translateY(-4px)}
+.skill-card:hover::before{transform:scaleX(1)}
+.skill-icon{width:42px;height:42px;background:rgba(124,58,237,.15);border-radius:10px;display:flex;align-items:center;justify-content:center;margin-bottom:14px;font-size:1.3rem}
+.skill-card h4{font-size:.95rem;font-weight:600;margin-bottom:6px}
+.skill-card p{font-size:.8rem;color:var(--text3);line-height:1.6}
+
+/* PROJECTS */
+.projects-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:24px}
+.project-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;transition:all .4s}
+.project-card:hover{transform:translateY(-6px);border-color:var(--border2);box-shadow:0 20px 50px rgba(0,0,0,.5)}
+.project-img{height:200px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
+.p1{background:linear-gradient(135deg,#1a0a3a,#2d1b69)}
+.p2{background:linear-gradient(135deg,#0a1a3a,#0d3b6e)}
+.p3{background:linear-gradient(135deg,#1a0a20,#4a0e4e)}
+.p4{background:linear-gradient(135deg,#0a2a1a,#0e6e3b)}
+.project-mockup{width:80%;height:75%;background:rgba(255,255,255,.05);border-radius:8px;border:1px solid rgba(255,255,255,.1);padding:16px;display:flex;flex-direction:column;gap:8px}
+.mockup-bar{height:6px;border-radius:3px;background:rgba(255,255,255,.15);margin:3px 0}
+.m-100{width:90%}.m-70{width:65%}.m-50{width:50%}.m-80{width:78%}.m-40{width:40%}
+.project-body{padding:20px}
+.project-tags{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px}
+.tag{background:rgba(124,58,237,.12);color:var(--accent3);font-size:.7rem;padding:3px 10px;border-radius:20px;border:1px solid var(--border)}
+.project-body h3{font-size:1.05rem;font-weight:700;margin-bottom:6px}
+.project-body p{font-size:.82rem;color:var(--text2);margin-bottom:16px;line-height:1.6}
+.project-actions{display:flex;gap:10px}
+.btn-sm{padding:7px 16px;border-radius:var(--r3);font-size:.78rem;font-weight:600;border:none;cursor:pointer;transition:all .3s}
+.btn-sm-primary{background:var(--accent);color:#fff}
+.btn-sm-primary:hover{background:var(--accent2)}
+.btn-sm-outline{background:transparent;color:var(--text2);border:1px solid var(--border2)}
+.btn-sm-outline:hover{color:var(--accent3);border-color:var(--accent2)}
+
+/* SERVICES */
+.services-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:22px}
+.service-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:28px;transition:all .35s;text-align:center}
+.service-card:hover{border-color:var(--border2);transform:translateY(-4px)}
+.service-icon{width:56px;height:56px;background:rgba(124,58,237,.12);border-radius:16px;margin:0 auto 18px;display:flex;align-items:center;justify-content:center;font-size:1.6rem;transition:all .3s}
+.service-card:hover .service-icon{background:rgba(124,58,237,.25);transform:scale(1.1)}
+.service-card h3{font-size:1rem;font-weight:700;margin-bottom:8px}
+.service-card p{font-size:.82rem;color:var(--text2);line-height:1.7}
+.service-price{display:inline-block;margin-top:14px;font-size:.78rem;color:var(--accent3);font-weight:600;background:rgba(124,58,237,.1);padding:4px 12px;border-radius:20px}
+
+/* TESTIMONIALS */
+.testimonials-wrap{background:var(--bg2)}
+.testi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:22px}
+.testi-card{background:var(--bg);border:1px solid var(--border);border-radius:var(--r);padding:26px;transition:all .35s}
+.testi-card:hover{border-color:var(--border2);transform:translateY(-3px)}
+.stars{color:#f59e0b;font-size:.9rem;margin-bottom:14px}
+.testi-text{font-size:.88rem;color:var(--text2);line-height:1.75;margin-bottom:18px;font-style:italic}
+.testi-text::before{content:'"';font-size:2rem;color:var(--accent);line-height:0;vertical-align:middle;margin-right:4px}
+.testi-author{display:flex;align-items:center;gap:12px}
+.author-avatar{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:700;flex-shrink:0}
+.av1{background:linear-gradient(135deg,#7c3aed,#a78bfa);color:#fff}
+.av2{background:linear-gradient(135deg,#0d6efd,#6ea8fe);color:#fff}
+.av3{background:linear-gradient(135deg,#198754,#75b798);color:#fff}
+.author-info h5{font-size:.85rem;font-weight:600}
+.author-info span{font-size:.75rem;color:var(--text3)}
+
+/* CONTACT */
+.contact-grid{display:grid;grid-template-columns:1fr 1.3fr;gap:60px;align-items:start}
+.contact-info h3{font-size:1.3rem;font-weight:700;margin-bottom:.75rem}
+.contact-info p{color:var(--text2);font-size:.9rem;line-height:1.75;margin-bottom:2rem}
+.contact-item{display:flex;align-items:center;gap:14px;margin-bottom:16px}
+.contact-icon{width:40px;height:40px;background:rgba(124,58,237,.12);border:1px solid var(--border);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0}
+.contact-item-text span{display:block;font-size:.7rem;color:var(--text3);text-transform:uppercase;letter-spacing:.5px;margin-bottom:2px}
+.contact-item-text a{font-size:.88rem;color:var(--text2);transition:color .3s}
+.contact-item-text a:hover{color:var(--accent3)}
+.social-links{display:flex;gap:12px;margin-top:1.5rem}
+.social-btn{width:40px;height:40px;border:1px solid var(--border2);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:.9rem;color:var(--text2);transition:all .3s}
+.social-btn:hover{background:var(--accent);border-color:var(--accent);color:#fff;transform:translateY(-2px)}
+.contact-form{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:32px}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.form-group{display:flex;flex-direction:column;margin-bottom:16px}
+.form-group label{font-size:.78rem;font-weight:600;color:var(--text2);margin-bottom:6px;text-transform:uppercase;letter-spacing:.5px}
+.form-group input,.form-group textarea,.form-group select{background:var(--bg3);border:1px solid var(--border);color:var(--text);padding:12px 16px;border-radius:var(--r2);font-size:.9rem;font-family:inherit;outline:none;transition:border-color .3s;resize:none}
+.form-group input:focus,.form-group textarea:focus{border-color:var(--accent2)}
+.form-group textarea{height:120px}
+.btn-submit{width:100%;background:var(--accent);color:#fff;border:none;padding:14px;border-radius:var(--r3);font-weight:600;font-size:.95rem;cursor:pointer;transition:all .3s;margin-top:4px}
+.btn-submit:hover{background:var(--accent2);transform:translateY(-2px);box-shadow:0 8px 25px rgba(124,58,237,.4)}
+.form-success{display:none;text-align:center;padding:20px;color:var(--accent3)}
+
+/* FOOTER */
+footer{background:var(--bg2);border-top:1px solid var(--border);padding:40px 0}
+.footer-inner{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:20px}
+.footer-logo{font-weight:700;font-size:1.1rem}
+.footer-logo span{color:var(--accent2)}
+.footer-links{display:flex;gap:1.5rem;flex-wrap:wrap}
+.footer-links a{font-size:.82rem;color:var(--text3);transition:color .3s}
+.footer-links a:hover{color:var(--accent2)}
+.footer-copy{font-size:.8rem;color:var(--text3)}
+
+/* ── CASE STUDY MODAL ── */
+.cs-overlay{position:fixed;inset:0;background:rgba(0,0,0,.85);backdrop-filter:blur(10px);z-index:999;display:flex;align-items:flex-start;justify-content:center;padding:24px;overflow-y:auto;opacity:0;pointer-events:none;transition:opacity .4s}
+.cs-overlay.open{opacity:1;pointer-events:all}
+.cs-modal{background:var(--bg2);border:1px solid var(--border2);border-radius:20px;width:100%;max-width:860px;margin:auto;position:relative;overflow:hidden;transform:translateY(30px);transition:transform .4s cubic-bezier(.22,1,.36,1)}
+.cs-overlay.open .cs-modal{transform:translateY(0)}
+.cs-close{position:absolute;top:20px;right:20px;width:36px;height:36px;border-radius:50%;background:var(--bg3);border:1px solid var(--border);color:var(--text2);font-size:1.1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .3s;z-index:10}
+.cs-close:hover{background:var(--accent);color:#fff;border-color:var(--accent)}
+.cs-hero{padding:48px 48px 36px;border-bottom:1px solid var(--border);position:relative}
+.cs-hero-bg{position:absolute;inset:0;opacity:.07}
+.cs-tag{display:inline-block;background:rgba(124,58,237,.15);color:var(--accent3);font-size:.72rem;font-weight:600;padding:4px 12px;border-radius:20px;border:1px solid var(--border2);margin-bottom:16px}
+.cs-hero h2{font-size:clamp(1.6rem,4vw,2.2rem);font-weight:800;letter-spacing:-1px;margin-bottom:10px}
+.cs-hero p{color:var(--text2);font-size:.95rem;line-height:1.75;max-width:640px}
+.cs-meta{display:flex;flex-wrap:wrap;gap:24px;margin-top:24px}
+.cs-meta-item{display:flex;flex-direction:column;gap:3px}
+.cs-meta-item span:first-child{font-size:.68rem;color:var(--text3);text-transform:uppercase;letter-spacing:.8px}
+.cs-meta-item span:last-child{font-size:.85rem;font-weight:600;color:var(--accent3)}
+.cs-body{padding:40px 48px}
+.cs-section{margin-bottom:36px}
+.cs-section h3{font-size:1rem;font-weight:700;color:var(--accent2);margin-bottom:14px;display:flex;align-items:center;gap:8px}
+.cs-section h3::after{content:'';flex:1;height:1px;background:var(--border)}
+.cs-section p{font-size:.88rem;color:var(--text2);line-height:1.8;margin-bottom:10px}
+.cs-section strong{color:var(--text)}
+.cs-cols{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.cs-box{background:var(--bg3);border:1px solid var(--border);border-radius:var(--r2);padding:18px}
+.cs-box h4{font-size:.82rem;font-weight:700;color:var(--text);margin-bottom:8px}
+.cs-box p,.cs-box li{font-size:.8rem;color:var(--text2);line-height:1.7}
+.cs-box ul{padding-left:16px}
+.cs-box li{margin-bottom:4px}
+.cs-process{display:flex;gap:0;margin:8px 0;flex-wrap:wrap}
+.cs-step{display:flex;align-items:center;gap:0}
+.cs-step-inner{background:var(--bg3);border:1px solid var(--border2);border-radius:var(--r2);padding:10px 16px;font-size:.75rem;font-weight:600;color:var(--accent3);white-space:nowrap}
+.cs-arrow{color:var(--text3);font-size:.8rem;padding:0 6px}
+.cs-metrics{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:14px;margin-top:8px}
+.cs-metric{background:var(--bg3);border:1px solid var(--border);border-radius:var(--r2);padding:16px;text-align:center}
+.cs-metric-num{font-size:1.5rem;font-weight:800;color:var(--accent3);display:block}
+.cs-metric-label{font-size:.72rem;color:var(--text3);margin-top:4px}
+.cs-stack{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
+.cs-pill{background:rgba(124,58,237,.1);border:1px solid var(--border);color:var(--accent3);font-size:.75rem;padding:5px 13px;border-radius:20px}
+.cs-takeaway{background:linear-gradient(135deg,rgba(124,58,237,.08),rgba(167,139,250,.05));border:1px solid var(--border2);border-radius:var(--r2);padding:20px 24px;font-size:.88rem;color:var(--text2);line-height:1.8;font-style:italic}
+.cs-takeaway::before{content:'💡 ';font-style:normal}
+
+/* RESPONSIVE */
+@media(max-width:768px){
+  .hero-inner,.about-grid,.contact-grid{grid-template-columns:1fr}
+  .hero-img-wrap{order:-1}
+  .avatar-outer{width:230px;height:230px}
+  .avatar-inner{width:195px;height:195px}
+  .nav-links,.nav-cta{display:none}
+  .hamburger{display:flex}
+  .form-row{grid-template-columns:1fr}
+  .floating-tag{display:none}
+  .footer-inner{flex-direction:column;text-align:center}
+  .cs-hero,.cs-body{padding:28px 22px}
+  .cs-cols{grid-template-columns:1fr}
+  .cs-process{flex-direction:column;align-items:flex-start}
+  .cs-arrow{transform:rotate(90deg)}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="navbar">
+  <div class="container nav-inner">
+    <a href="#" class="logo">Samuel<span>.</span></a>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li><li><a href="#skills">Skills</a></li>
+      <li><a href="#projects">Projects</a></li><li><a href="#services">Services</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <a href="#contact" class="nav-cta">Hire Me</a>
+    <div class="hamburger" id="ham"><span></span><span></span><span></span></div>
+  </div>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#about" class="mob-link">About</a><a href="#skills" class="mob-link">Skills</a>
+  <a href="#projects" class="mob-link">Projects</a><a href="#services" class="mob-link">Services</a>
+  <a href="#contact" class="mob-link">Contact</a>
+</div>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="container">
+    <div class="hero-inner">
+      <div>
+        <div class="hero-badge">✦ Available for Freelance & Full-time</div>
+        <h1>Designing<br>Experiences,<br><span class="line2">Building Futures.</span></h1>
+        <p class="hero-bio">I'm <strong style="color:var(--accent3)">Samuel Abayomi</strong> — a UI/UX Designer & Frontend Developer who crafts beautiful, intuitive digital products. I bridge the gap between design and code to deliver experiences users love.</p>
+        <div class="hero-btns">
+          <a href="#projects" class="btn-primary">View Projects</a>
+          <a href="#contact" class="btn-outline">Hire Me →</a>
+        </div>
+        <div class="hero-stats">
+          <div class="stat"><span class="stat-num">13+</span><span class="stat-label">Projects Done</span></div>
+          <div class="stat"><span class="stat-num">10+</span><span class="stat-label">Happy Clients</span></div>
+          <div class="stat"><span class="stat-num">5+</span><span class="stat-label">Years Exp.</span></div>
+        </div>
+      </div>
+      <div class="hero-img-wrap">
+        <div style="position:relative;display:inline-block">
+          <div class="avatar-outer"><div class="avatar-inner">
+            <svg width="180" height="200" viewBox="0 0 180 200" fill="none">
+              <circle cx="90" cy="70" r="48" fill="rgba(124,58,237,.25)" stroke="rgba(167,139,250,.4)" stroke-width="1.5"/>
+              <circle cx="90" cy="62" r="30" fill="rgba(167,139,250,.3)"/>
+              <ellipse cx="90" cy="165" rx="58" ry="38" fill="rgba(124,58,237,.2)" stroke="rgba(167,139,250,.3)" stroke-width="1.5"/>
+              <circle cx="90" cy="58" r="22" fill="rgba(167,139,250,.5)"/>
+              <text x="90" y="66" text-anchor="middle" fill="rgba(240,239,255,.9)" font-size="20" font-family="Inter,sans-serif" font-weight="700">SA</text>
+            </svg>
+          </div></div>
+          <div class="floating-tag tag1" style="color:var(--accent3)">✦ Figma Expert</div>
+          <div class="floating-tag tag2" style="color:#60efff">⟡ React / Next.js</div>
+          <div class="floating-tag tag3" style="color:#c4b5fd">◈ Design Systems</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-text fade-up">
+        <p class="section-label">About Me</p>
+        <h2 class="section-title">The story<br>behind the work</h2>
+        <p>I started my journey as a graphic designer, drawn to the power of visuals to communicate ideas. Over time, I fell in love with the web learning to code brought my designs to life in ways static mockups never could.</p>
+        <p>Today, I operate at the intersection of <strong>design and engineering</strong>, creating end-to-end digital products from early wireframes and user research all the way to pixel-perfect, performant frontend code.</p>
+        <div class="mission-box">🎯 My mission is to turn complex problems into simple, elegant digital experiences products that don't just look great, but genuinely work for the people using them.</div>
+        <p>Whether working with early-stage startups or established brands, I bring <strong>strategic thinking, creative execution, and technical precision</strong> to every project.</p>
+      </div>
+      <div class="about-skills-quick fade-up">
+        <p class="section-label" style="margin-bottom:1.5rem">Skill Proficiency</p>
+        <div class="skill-bar-item"><label>UI/UX Design <span>95%</span></label><div class="bar-bg"><div class="bar-fill" data-w="95"></div></div></div>
+        <div class="skill-bar-item"><label>Figma & Prototyping <span>92%</span></label><div class="bar-bg"><div class="bar-fill" data-w="92"></div></div></div>
+        <div class="skill-bar-item"><label>React / Next.js <span>88%</span></label><div class="bar-bg"><div class="bar-fill" data-w="88"></div></div></div>
+        <div class="skill-bar-item"><label>HTML / CSS / JS <span>95%</span></label><div class="bar-bg"><div class="bar-fill" data-w="95"></div></div></div>
+        <div class="skill-bar-item"><label>Design Systems <span>85%</span></label><div class="bar-bg"><div class="bar-fill" data-w="85"></div></div></div>
+        <div class="skill-bar-item"><label>Responsive Web Design <span>96%</span></label><div class="bar-bg"><div class="bar-fill" data-w="96"></div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills" class="skills-wrap">
+  <div class="container">
+    <div class="section-header fade-up" style="text-align:center">
+      <p class="section-label">What I Do</p>
+      <h2 class="section-title">Skills & Expertise</h2>
+      <p class="section-sub" style="margin:0 auto">A full-stack design and development toolkit — built to take products from concept to launch.</p>
+    </div>
+    <div class="skills-grid">
+      <div class="skill-card fade-up"><div class="skill-icon">🎨</div><h4>UI/UX Design</h4><p>Human-centred interfaces crafted with research, empathy, and strong visual hierarchy.</p></div>
+      <div class="skill-card fade-up"><div class="skill-icon">📐</div><h4>Wireframing & Prototyping</h4><p>Low to high-fidelity prototypes that validate ideas before a single line of code is written.</p></div>
+      <div class="skill-card fade-up"><div class="skill-icon">🖊️</div><h4>Figma</h4><p>Advanced Figma workflows components, variants, auto-layout, and interactive prototypes.</p></div>
+      <div class="skill-card fade-up"><div class="skill-icon">🏗️</div><h4>Design Systems</h4><p>Scalable, token-based design systems that keep teams consistent at any scale.</p></div>
+      <div class="skill-card fade-up"><div class="skill-icon">📱</div><h4>Responsive Web Design</h4><p>Fluid, mobile-first layouts that look and feel great across every screen size.</p></div>
+      <div class="skill-card fade-up"><div class="skill-icon">⟨/⟩</div><h4>HTML / CSS / JavaScript</h4><p>Semantic, accessible, performant markup and styles with modern ES2024+ JavaScript.</p></div>
+      <div class="skill-card fade-up"><div class="skill-icon">⚛️</div><h4>React / Next.js</h4><p>Component-driven UIs with server-side rendering, routing, and performance optimisation.</p></div>
+      <div class="skill-card fade-up"><div class="skill-icon">🚀</div><h4>Frontend Development</h4><p>Clean, maintainable code that passes Lighthouse audits and delights developers who maintain it.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="container">
+    <div class="section-header fade-up">
+      <p class="section-label">Selected Work</p>
+      <h2 class="section-title">Featured Projects</h2>
+      <p class="section-sub">A curated selection of recent design and development projects.</p>
+    </div>
+    <div class="projects-grid">
+      <div class="project-card fade-up">
+        <div class="project-img p1"><div class="project-mockup"><div class="mockup-bar m-100"></div><div class="mockup-bar m-70"></div><div class="mockup-bar m-50"></div><div class="mockup-bar m-80"></div><div class="mockup-bar m-40"></div></div></div>
+        <div class="project-body">
+          <div class="project-tags"><span class="tag">Figma</span><span class="tag">React</span><span class="tag">UX Research</span></div>
+          <h3>FinTrack — Finance Dashboard</h3>
+          <p>A comprehensive personal finance platform with real-time analytics, budget tracking, and custom reporting dashboards.</p>
+          <div class="project-actions"><button class="btn-sm btn-sm-primary">Live Demo</button><button class="btn-sm btn-sm-outline" onclick="openCS('fintrack')">Case Study</button></div>
+        </div>
+      </div>
+      <div class="project-card fade-up">
+        <div class="project-img p2"><div class="project-mockup"><div class="mockup-bar m-80"></div><div class="mockup-bar m-100"></div><div class="mockup-bar" style="width:60%"></div><div class="mockup-bar m-70"></div><div class="mockup-bar m-50"></div></div></div>
+        <div class="project-body">
+          <div class="project-tags"><span class="tag">Next.js</span><span class="tag">Tailwind</span><span class="tag">Design System</span></div>
+          <h3>MediCore — Healthcare SaaS</h3>
+          <p>End-to-end design and development of a patient management system used by 12 clinics across 3 countries.</p>
+          <div class="project-actions"><button class="btn-sm btn-sm-primary">Live Demo</button><button class="btn-sm btn-sm-outline" onclick="openCS('medicore')">Case Study</button></div>
+        </div>
+      </div>
+      <div class="project-card fade-up">
+        <div class="project-img p3"><div class="project-mockup"><div class="mockup-bar m-50"></div><div class="mockup-bar m-80"></div><div class="mockup-bar m-100"></div><div class="mockup-bar m-40"></div><div class="mockup-bar m-70"></div></div></div>
+        <div class="project-body">
+          <div class="project-tags"><span class="tag">Figma</span><span class="tag">Prototyping</span><span class="tag">Mobile</span></div>
+          <h3>Bloom — E-learning App</h3>
+          <p>A mobile-first e-learning platform with gamified progress tracking, interactive lessons, and social learning features.</p>
+          <div class="project-actions"><button class="btn-sm btn-sm-primary">Live Demo</button><button class="btn-sm btn-sm-outline" onclick="openCS('bloom')">Case Study</button></div>
+        </div>
+      </div>
+      <div class="project-card fade-up">
+        <div class="project-img p4"><div class="project-mockup"><div class="mockup-bar m-100"></div><div class="mockup-bar" style="width:60%"></div><div class="mockup-bar m-80"></div><div class="mockup-bar m-50"></div><div class="mockup-bar m-70"></div></div></div>
+        <div class="project-body">
+          <div class="project-tags"><span class="tag">React</span><span class="tag">TypeScript</span><span class="tag">Framer</span></div>
+          <h3>Verde — Eco Brand Website</h3>
+          <p>Award-shortlisted brand website for a sustainable fashion startup, featuring immersive scroll animations and a full CMS.</p>
+          <div class="project-actions"><button class="btn-sm btn-sm-primary">Live Demo</button><button class="btn-sm btn-sm-outline" onclick="openCS('verde')">Case Study</button></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services" style="background:var(--bg2)">
+  <div class="container">
+    <div class="section-header fade-up" style="text-align:center">
+      <p class="section-label">What I Offer</p>
+      <h2 class="section-title">Services</h2>
+      <p class="section-sub" style="margin:0 auto">Holistic services that cover the full product lifecycle — from strategy to launch.</p>
+    </div>
+    <div class="services-grid">
+      <div class="service-card fade-up"><div class="service-icon">🎨</div><h3>UI/UX Design</h3><p>Full product design — user research, IA, wireframes, visual design, and interactive prototypes validated through testing.</p><span class="service-price">From $1,200</span></div>
+      <div class="service-card fade-up"><div class="service-icon">🌐</div><h3>Website Design</h3><p>Bespoke, conversion-optimised website designs that reflect your brand and engage your audience.</p><span class="service-price">From $800</span></div>
+      <div class="service-card fade-up"><div class="service-icon">💻</div><h3>Frontend Development</h3><p>Pixel-perfect React/Next.js builds with clean code, great performance, and seamless CMS integration.</p><span class="service-price">From $1,500</span></div>
+      <div class="service-card fade-up"><div class="service-icon">🚀</div><h3>Landing Page Design</h3><p>High-converting landing pages designed and built for maximum clarity, trust, and action — fast turnaround.</p><span class="service-price">From $400</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section id="testimonials" class="testimonials-wrap">
+  <div class="container">
+    <div class="section-header fade-up" style="text-align:center">
+      <p class="section-label">Client Reviews</p><h2 class="section-title">What People Say</h2>
+    </div>
+    <div class="testi-grid">
+      <div class="testi-card fade-up"><div class="stars">★★★★★</div><p class="testi-text">Samuel completely transformed our product. The new design increased our conversion rate by 40% in the first month. His attention to detail and deep understanding of our users was truly impressive — this is the kind of work you pray for.</p><div class="testi-author"><div class="author-avatar av1">CO</div><div class="author-info"><h5>Chisom Okafor</h5><span>CPO, FinTrack Nigeria</span></div></div></div>
+      <div class="testi-card fade-up"><div class="stars">★★★★★</div><p class="testi-text">Working with Samuel was like having an entire design team under one roof. His Figma files were perfectly organised, and the developer handoff was seamless. E do am well-well — we go work together again!</p><div class="testi-author"><div class="author-avatar av2">EN</div><div class="author-info"><h5>Emeka Nwosu</h5><span>CTO, MediCore Health Lagos</span></div></div></div>
+      <div class="testi-card fade-up"><div class="stars">★★★★★</div><p class="testi-text">Our brand website came out better than I imagined. Samuel understood our vision immediately and delivered something that made our competitors take notice. As a Nigerian founder, I'm proud to recommend him without any reservation.</p><div class="testi-author"><div class="author-avatar av3">FA</div><div class="author-info"><h5>Funmilayo Adeyemi</h5><span>Founder, Verde Creative Studio</span></div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="container">
+    <div class="contact-grid">
+      <div class="fade-up">
+        <p class="section-label">Get in Touch</p>
+        <h2 class="section-title">Let's build<br>something great.</h2>
+        <div class="contact-info">
+          <p>Have a project in mind or looking to bring on a designer-developer hybrid? I'd love to hear from you. Let's create something exceptional together.</p>
+          <div class="contact-item"><div class="contact-icon">✉</div><div class="contact-item-text"><span>Email</span><a href="mailto:samueabayomi@gmail.com">samueabayomi@gmail.com</a></div></div>
+          <div class="contact-item"><div class="contact-icon">📍</div><div class="contact-item-text"><span>Location</span><a>Lagos, Nigeria · Remote Worldwide</a></div></div>
+          <div class="contact-item"><div class="contact-icon">⏱</div><div class="contact-item-text"><span>Response Time</span><a>Within 24 hours</a></div></div>
+          <div class="social-links">
+            <a class="social-btn" href="#" title="LinkedIn">in</a>
+            <a class="social-btn" href="#" title="GitHub">GH</a>
+            <a class="social-btn" href="#" title="Behance">Be</a>
+            <a class="social-btn" href="#" title="Dribbble">Dr</a>
+          </div>
+        </div>
+      </div>
+      <div class="contact-form fade-up">
+        <div class="form-row">
+          <div class="form-group"><label>First Name</label><input type="text" placeholder="Samuel"></div>
+          <div class="form-group"><label>Last Name</label><input type="text" placeholder="Abayomi"></div>
+        </div>
+        <div class="form-group"><label>Email Address</label><input type="email" placeholder="hello@example.com"></div>
+        <div class="form-group"><label>Service Needed</label>
+          <select style="background:var(--bg3);border:1px solid var(--border);color:var(--text);padding:12px 16px;border-radius:var(--r2);font-size:.9rem;font-family:inherit;outline:none">
+            <option value="">Select a service...</option><option>UI/UX Design</option><option>Website Design</option><option>Frontend Development</option><option>Landing Page</option><option>Other</option>
+          </select>
+        </div>
+        <div class="form-group"><label>Message</label><textarea placeholder="Tell me about your project — timeline, budget, goals..."></textarea></div>
+        <button class="btn-submit" id="submitBtn">Send Message →</button>
+        <div class="form-success" id="formSuccess">✓ Message sent! I'll be in touch within 24 hours.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container footer-inner">
+    <div class="footer-logo">Samuel<span>.</span></div>
+    <div class="footer-links"><a href="#about">About</a><a href="#skills">Skills</a><a href="#projects">Projects</a><a href="#services">Services</a><a href="#contact">Contact</a></div>
+    <p class="footer-copy">© 2025 Samuel Abayomi. All rights reserved.</p>
+  </div>
+</footer>
+
+<!-- ══════════════ CASE STUDY MODALS ══════════════ -->
+
+<!-- 1. FINTRACK -->
+<div class="cs-overlay" id="cs-fintrack">
+  <div class="cs-modal">
+    <button class="cs-close" onclick="closeCS('fintrack')">✕</button>
+    <div class="cs-hero">
+      <div class="cs-hero-bg p1" style="border-radius:0"></div>
+      <span class="cs-tag">Case Study · 2024</span>
+      <h2>FinTrack — Personal Finance Dashboard</h2>
+      <p>Redesigning a fragmented fintech experience into a unified, intelligent financial command centre — resulting in a 40% spike in user conversion and a 65% jump in daily active usage.</p>
+      <div class="cs-meta">
+        <div class="cs-meta-item"><span>Role</span><span>Lead UI/UX Designer + Frontend Dev</span></div>
+        <div class="cs-meta-item"><span>Duration</span><span>14 Weeks</span></div>
+        <div class="cs-meta-item"><span>Team</span><span>Solo + 2 Backend Engineers</span></div>
+        <div class="cs-meta-item"><span>Platform</span><span>Web App (Desktop & Mobile)</span></div>
+      </div>
+    </div>
+    <div class="cs-body">
+      <div class="cs-section">
+        <h3>01 · The Problem</h3>
+        <p>FinTrack's existing product had users juggling 4–5 separate apps to track spending, savings, budgets, and investments. Churn was at 62% within the first 30 days. Exit interviews revealed a single consistent pain point: <strong>users felt overwhelmed, not empowered.</strong></p>
+        <p>The challenge was not a lack of data — it was the lack of clarity, hierarchy, and meaning behind the data presented.</p>
+      </div>
+      <div class="cs-section">
+        <h3>02 · Research & Discovery</h3>
+        <div class="cs-cols">
+          <div class="cs-box"><h4>📋 Methods Used</h4><ul><li>12 in-depth user interviews</li><li>Competitor audit (Mint, YNAB, PiggyVest)</li><li>Heuristic evaluation of existing product</li><li>Card sorting & IA workshops</li><li>Analytics review (Mixpanel)</li></ul></div>
+          <div class="cs-box"><h4>🔍 Key Findings</h4><ul><li>Users wanted a single "financial health score"</li><li>78% checked their balance daily — on mobile</li><li>Goal tracking was the #1 requested feature</li><li>Alerts & notifications were ignored (poor timing)</li><li>Trust was built through transparency of data</li></ul></div>
+        </div>
+      </div>
+      <div class="cs-section">
+        <h3>03 · Design Process</h3>
+        <div class="cs-process">
+          <div class="cs-step"><div class="cs-step-inner">Discovery</div><span class="cs-arrow">→</span></div>
+          <div class="cs-step"><div class="cs-step-inner">IA & Flows</div><span class="cs-arrow">→</span></div>
+          <div class="cs-step"><div class="cs-step-inner">Wireframes</div><span class="cs-arrow">→</span></div>
+          <div class="cs-step"><div class="cs-step-inner">Design System</div><span class="cs-arrow">→</span></div>
+          <div class="cs-step"><div class="cs-step-inner">Hi-Fi UI</div><span class="cs-arrow">→</span></div>
+          <div class="cs-step"><div class="cs-step-inner">Usability Tests</div><span class="cs-arrow">→</span></div>
+          <div class="cs-step"><div class="cs-step-inner">Dev Handoff</div></div>
+        </div>
+        <p style="margin-top:14px">I started by mapping a complete information architecture that reduced the primary navigation from 9 items to 4 core sections. Every screen was wireframed and tested with 8 participants before any visual design work began. A lean design system of 60+ components was built in Figma using auto-layout, ensuring the frontend build was pixel-precise and consistent.</p>
+      </div>
+      <div class="cs-section">
+        <h3>04 · Key Design Decisions</h3>
+        <div class="cs-cols">
+          <div class="cs-box"><h4>Financial Health Score</h4><p>A single glanceable score (0–100) computed from spending habits, savings rate, and goal progress — replaced 5 confusing graphs on the old home screen.</p></div>
+          <div class="cs-box"><h4>Smart Spending Rings</h4><p>Category-based circular progress rings replaced bar charts. User testing showed 3× faster comprehension and higher perceived "simplicity."</p></div>
+          <div class="cs-box"><h4>Goal-First Onboarding</h4><p>New users set 1 financial goal before seeing any data. This anchored their entire experience and reduced the "what do I do here?" confusion by 71%.</p></div>
+          <div class="cs-box"><h4>Contextual Notifications</h4><p>Redesigned the alerts engine to trigger at psychologically optimal moments (e.g., payday, end of month) — open rates went from 11% to 49%.</p></div>
+        </div>
+      </div>
+      <div class="cs-section">
+        <h3>05 · Tech Stack</h3>
+        <div class="cs-stack"><span class="cs-pill">React</span><span class="cs-pill">TypeScript</span><span class="cs-pill">Recharts</span><span class="cs-pill">Zustand</span><span class="cs-pill">Tailwind CSS</span><span class="cs-pill">Figma</span><span class="cs-pill">Node.js API</span><span class="cs-pill">PostgreSQL</span></div>
+      </div>
+      <div class="cs-section">
+        <h3>06 · Results & Impact</h3>
+        <div class="cs-metrics">
+          <div class="cs-metric"><span class="cs-metric-num">+40%</span><div class="cs-metric-label">Conversion Rate</div></div>
+          <div class="cs-metric"><span class="cs-metric-num">+65%</span><div class="cs-metric-label">Daily Active Users</div></div>
+          <div class="cs-metric"><span class="cs-metric-num">−62%</span><div class="cs-metric-label">30-Day Churn</div></div>
+          <div class="cs-metric"><span class="cs-metric-num">4.8★</span><div class="cs-metric-label">App Store Rating</div></div>
+          <div class="cs-metric"><span class="cs-metric-num">+49%</span><div class="cs-metric-label">Notification Opens</div></div>
+        </div>
+      </div>
+      <div class="cs-takeaway">The biggest lesson: data without context is noise. The moment we shifted from showing users what they spent to showing them what it meant for their goals, engagement transformed completely. Design is interpretation, not just presentation.</div>
+    </div>
+  </div>
+</div>
+
+<!-- 2. MEDICORE -->
+<div class="cs-overlay" id="cs-medicore">
+  <div class="cs-modal">
+    <button class="cs-close" onclick="closeCS('medicore')">✕</button>
+    <div class="cs-hero">
+      <div class="cs-hero-bg p2" style="border-radius:0"></div>
+      <span class="cs-tag">Case Study · 2024</span>
+      <h2>MediCore — Healthcare SaaS Platform</h2>
+      <p>Designing a HIPAA-aligned, clinician-first patient management system that eliminated paper records across 12 clinics in Nigeria and Ghana — cutting administrative time by 70%.</p>
+      <div class="cs-meta">
+        <div class="cs-meta-item"><span>Role</span><span>UI/UX Designer + Frontend Lead</span></div>
+        <div class="cs-meta-item"><span>Duration</span><span>22 Weeks</span></div>
+        <div class="cs-meta-item"><span>Team</span><span>2 Designers, 4 Engineers</span></div>
+        <div class="cs-meta-item"><span>Platform</span><span>Web SaaS (Responsive)</span></div>
+      </div>
+    </div>
+    <div class="cs-body">
+      <div class="cs-section">
+        <h3>01 · The Problem</h3>
+        <p>Clinics across West Africa were managing patient records via physical folders, WhatsApp messages, and disconnected spreadsheets. Misplaced records led to repeated tests, delayed diagnoses, and billing errors worth millions of naira monthly.</p>
+        <p>MediCore needed a system that <strong>nurses, doctors, and administrators could actually use</strong> — not a complex enterprise tool that required two weeks of training.</p>
+      </div>
+      <div class="cs-section">
+        <h3>02 · Research & Discovery</h3>
+        <div class="cs-cols">
+          <div class="cs-box"><h4>📋 Research Methods</h4><ul><li>Contextual inquiry at 3 clinics (Lagos, Abuja, Accra)</li><li>Role-based user interviews (Doctors, Nurses, Admin)</li><li>Shadow sessions with front desk staff</li><li>Competitive audit of Epic, Practo, Vezeeta</li><li>Accessibility audit for low-bandwidth environments</li></ul></div>
+          <div class="cs-box"><h4>🔍 Critical Insights</h4><ul><li>Nurses are the primary system users, not doctors</li><li>Intermittent internet is a hard constraint</li><li>Trust in digital systems is built through speed, not features</li><li>Billing and scheduling were the highest-pain workflows</li><li>Role-based access control was a non-negotiable requirement</li></ul></div>
+        </div>
+      </div>
+      <div class="cs-section">
+        <h3>03 · Design Process</h3>
+        <div class="cs-process">
+          <div class="cs-step"><div class="cs-step-inner">Field Research</div><span class="cs-arrow">→</span></div>
+          <div class="cs-step"><div class="cs-step-inner">Journey Mapping</div><span class="cs-arrow">→</span></div>
+          <div class="cs-step"><div class="cs-step-inner">Service Blueprint</div><span class="cs-arrow">→</span></div>
+          <div class="cs-step"><div class="cs-step-inner">Wireframes</div><span class="cs-arrow">→</span></div>
+          <div class="cs-step"><div class="cs-step-inner">Design System</div><span class="cs-arrow">→</span></div>
+          <div class="cs-step"><div class="cs-step-inner">Pilot Testing</div><span class="cs-arrow">→</span></div>
+          <div class="cs-step"><div class="cs-step-inner">Rollout</div></div>
+        </div>
+        <p style="margin-top:14px">I created 3 distinct user journeys — doctor, nurse, and admin — each with tailored dashboards. A service blueprint revealed 17 handoff points between roles where delays occurred. The design prioritised resolving those specific handoffs. Every prototype was tested on-site at clinics with actual staff before progressing.</p>
+      </div>
+      <div class="cs-section">
+        <h3>04 · Key Design Decisions</h3>
+        <div class="cs-cols">
+          <div class="cs-box"><h4>Offline-First Architecture</h4><p>Designed the UI around an offline-first model using service workers. Patient lookups and record updates queue locally and sync when connectivity returns — critical for Nigerian network conditions.</p></div>
+          <div class="cs-box"><h4>Role-Based Dashboards</h4><p>Three separate dashboard views with the same underlying data — each surfacing only what each role needs. Nurses see queues and vitals; doctors see clinical history; admins see billing and capacity.</p></div>
+          <div class="cs-box"><h4>One-Click Patient Check-In</h4><p>Reduced patient registration from a 7-screen process to a 3-step flow using smart defaults, autofill from phone number lookup, and pre-populated visit templates.</p></div>
+          <div class="cs-box"><h4>Colour-Coded Triage System</h4><p>A visual triage indicator system (green/amber/red) on the patient queue gave nurses at-a-glance severity awareness, eliminating verbal handoffs and missed priority cases.</p></div>
+        </div>
+      </div>
+      <div class="cs-section">
+        <h3>05 · Tech Stack</h3>
+        <div class="cs-stack"><span class="cs-pill">Next.js</span><span class="cs-pill">TypeScript</span><span class="cs-pill">Tailwind CSS</span><span class="cs-pill">React Query</span><span class="cs-pill">IndexedDB</span><span class="cs-pill">Figma</span><span class="cs-pill">Django REST</span><span class="cs-pill">PostgreSQL</span></div>
+      </div>
+      <div class="cs-section">
+        <h3>06 · Results & Impact</h3>
+        <div class="cs-metrics">
+          <div class="cs-metric"><span class="cs-metric-num">12</span><div class="cs-metric-label">Clinics Deployed</div></div>
+          <div class="cs-metric"><span class="cs-metric-num">−70%</span><div class="cs-metric-label">Admin Time</div></div>
+          <div class="cs-metric"><span class="cs-metric-num">−85%</span><div class="cs-metric-label">Record Errors</div></div>
+          <div class="cs-metric"><span class="cs-metric-num">3 days</span><div class="cs-metric-label">Staff Onboarding</div></div>
+          <div class="cs-metric"><span class="cs-metric-num">4.7★</span><div class="cs-metric-label">Staff Satisfaction</div></div>
+        </div>
+      </div>
+      <div class="cs-takeaway">Healthcare UX is life-critical design. Every second of confusion or delay in a clinical setting has a human cost. This project taught me that the most impactful design decision is often choosing what NOT to put on screen — radical simplicity in high-stakes environments saves lives.</div>
+    </div>
+  </div>
+</div>
+
+<!-- 3. BLOOM -->
+<div class="cs-overlay" id="cs-bloom">
+  <div class="cs-modal">
+    <button class="cs-close" onclick="closeCS('bloom')">✕</button>
+    <div class="cs-hero">
+      <div class="cs-hero-bg p3" style="border-radius:0"></div>
+      <span class="cs-tag">Case Study · 2023</span>
+      <h2>Bloom — Mobile E-Learning Platform</h2>
+      <p>Transforming a 15% course completion rate into 85% through gamification, social accountability, and a mobile-first redesign built for African learners with limited data plans.</p>
+      <div class="cs-meta">
+        <div class="cs-meta-item"><span>Role</span><span>Lead Product Designer</span></div>
+        <div class="cs-meta-item"><span>Duration</span><span>18 Weeks</span></div>
+        <div class="cs-meta-item"><span>Team</span><span>Solo Designer, 3 Engineers</span></div>
+        <div class="cs-meta-item"><span>Platform</span><span>iOS & Android (React Native)</span></div>
+      </div>
+    </div>
+    <div class="cs-body">
+      <div class="cs-section">
+        <h3>01 · The Problem</h3>
+        <p>Bloom's v1 app had 40,000 downloads but catastrophic engagement: only 15% of enrolled learners ever completed a course. Revenue was driven entirely by new sign-ups, not retention. The product was a content library pretending to be a learning platform.</p>
+        <p>The core problem: <strong>learning is hard, and the app was giving users every reason to quit.</strong> No community. No accountability. No sense of progress. No reason to return tomorrow.</p>
+      </div>
+      <div class="cs-section">
+        <h3>02 · Research & Discovery</h3>
+        <div class="cs-cols">
+          <div class="cs-box"><h4>📋 Research Methods</h4><ul><li>Cohort dropout analysis (Mixpanel + Amplitude)</li><li>15 learner interviews (completers vs dropouts)</li><li>Gamification framework audit (Octalysis)</li><li>Benchmark: Duolingo, Khan Academy, Coursera</li><li>Survey of 200 Bloom users on motivation triggers</li></ul></div>
+          <div class="cs-box"><h4>🔍 Key Insights</h4><ul><li>83% of dropouts quit in the first 3 days</li><li>Learners who joined a study group had 6× completion rates</li><li>Progress was invisible — users didn't know how far they'd come</li><li>Lessons were too long for mobile commutes (avg. 45 mins)</li><li>"I forgot about it" was the #1 dropout reason</li></ul></div>
+        </div>
+      </div>
+      <div class="cs-section">
+        <h3>03 · Design Process</h3>
+        <div class="cs-process">
+          <div class="cs-step"><div class="cs-step-inner">Data Analysis</div><span class="cs-arrow">→</span></div>
+          <div class="cs-step"><div class="cs-step-inner">Interviews</div><span class="cs-arrow">→</span></div>
+          <div class="cs-step"><div class="cs-step-inner">Gamification Strategy</div><span class="cs-arrow">→</span></div>
+          <div class="cs-step"><div class="cs-step-inner">Mobile Wireframes</div><span class="cs-arrow">→</span></div>
+          <div class="cs-step"><div class="cs-step-inner">Prototype & Test</div><span class="cs-arrow">→</span></div>
+          <div class="cs-step"><div class="cs-step-inner">A/B Testing</div><span class="cs-arrow">→</span></div>
+          <div class="cs-step"><div class="cs-step-inner">Launch</div></div>
+        </div>
+        <p style="margin-top:14px">I applied the Octalysis gamification framework to identify the right motivational levers for adult learners. Unlike Duolingo's streak-heavy approach, Bloom's audience needed achievement-based motivation over loss-aversion. Lessons were restructured into 8–12 minute micro-modules. Every flow was A/B tested with cohorts of 500 users before full rollout.</p>
+      </div>
+      <div class="cs-section">
+        <h3>04 · Key Design Decisions</h3>
+        <div class="cs-cols">
+          <div class="cs-box"><h4>Learning Streaks + XP System</h4><p>A lightweight streaks mechanic paired with an XP (Experience Points) economy that unlocked badges, profile customisation, and certificate frames — giving learners visible social capital.</p></div>
+          <div class="cs-box"><h4>Study Circles</h4><p>Cohort-based study groups of 5–8 learners with a shared leaderboard. Group progress was shown on each member's home screen, creating social accountability without pressure.</p></div>
+          <div class="cs-box"><h4>Micro-Module Architecture</h4><p>Restructured all courses from 6 long lectures into 25–40 micro-modules of 8–12 minutes each. Users could complete a module during a commute — removing the "I don't have time" barrier.</p></div>
+          <div class="cs-box"><h4>Smart Reminders</h4><p>AI-driven push notifications that learned each user's optimal engagement window based on their past activity — notifications sent at the right time, not just a fixed daily time.</p></div>
+        </div>
+      </div>
+      <div class="cs-section">
+        <h3>05 · Tech Stack</h3>
+        <div class="cs-stack"><span class="cs-pill">React Native</span><span class="cs-pill">Expo</span><span class="cs-pill">Figma</span><span class="cs-pill">Lottie Animations</span><span class="cs-pill">Firebase</span><span class="cs-pill">Node.js</span><span class="cs-pill">MongoDB</span><span class="cs-pill">OneSignal</span></div>
+      </div>
+      <div class="cs-section">
+        <h3>06 · Results & Impact</h3>
+        <div class="cs-metrics">
+          <div class="cs-metric"><span class="cs-metric-num">85%</span><div class="cs-metric-label">Course Completion</div></div>
+          <div class="cs-metric"><span class="cs-metric-num">+470%</span><div class="cs-metric-label">DAU Growth</div></div>
+          <div class="cs-metric"><span class="cs-metric-num">+3.1×</span><div class="cs-metric-label">Session Length</div></div>
+          <div class="cs-metric"><span class="cs-metric-num">62%</span><div class="cs-metric-label">Joined Study Circles</div></div>
+          <div class="cs-metric"><span class="cs-metric-num">4.9★</span><div class="cs-metric-label">App Store Rating</div></div>
+        </div>
+      </div>
+      <div class="cs-takeaway">The platform didn't change — the psychology did. Learners were always capable of completing courses; they just needed the right environment of encouragement, accountability, and visible progress. Good UX for education isn't about teaching — it's about reducing every possible reason to stop.</div>
+    </div>
+  </div>
+</div>
+
+<!-- 4. VERDE -->
+<div class="cs-overlay" id="cs-verde">
+  <div class="cs-modal">
+    <button class="cs-close" onclick="closeCS('verde')">✕</button>
+    <div class="cs-hero">
+      <div class="cs-hero-bg p4" style="border-radius:0"></div>
+      <span class="cs-tag">Case Study · 2023</span>
+      <h2>Verde — Sustainable Fashion Brand Website</h2>
+      <p>Building an award-shortlisted, immersive brand experience for a Lagos-based eco-fashion startup — tripling organic traffic and converting 28% of visitors into email subscribers within 60 days of launch.</p>
+      <div class="cs-meta">
+        <div class="cs-meta-item"><span>Role</span><span>UX Designer + Frontend Developer</span></div>
+        <div class="cs-meta-item"><span>Duration</span><span>10 Weeks</span></div>
+        <div class="cs-meta-item"><span>Team</span><span>Solo</span></div>
+        <div class="cs-meta-item"><span>Platform</span><span>Marketing Website + CMS</span></div>
+      </div>
+    </div>
+    <div class="cs-body">
+      <div class="cs-section">
+        <h3>01 · The Problem</h3>
+        <p>Verde had a powerful story — sustainable, ethically made fashion designed in Lagos — but a website that looked like a basic Shopify template. Investors were unimpressed. Wholesale buyers weren't taking emails seriously. The brand's digital presence was destroying trust rather than building it.</p>
+        <p>The brief was clear: <strong>build a website worthy of the brand they had already built offline.</strong> The site needed to feel like walking into a high-end Lagos concept store, not clicking through a generic e-commerce template.</p>
+      </div>
+      <div class="cs-section">
+        <h3>02 · Research & Discovery</h3>
+        <div class="cs-cols">
+          <div class="cs-box"><h4>📋 Research Methods</h4><ul><li>Brand immersion workshop (2-day)</li><li>Target audience interviews (10 eco-conscious consumers)</li><li>Benchmark study: Ganni, Veja, Patagonia, Cek</li><li>Awwwards & Siteinspire trend audit</li><li>Content audit and photography review</li></ul></div>
+          <div class="cs-box"><h4>🔍 Key Insights</h4><ul><li>The brand story was the product — it needed to lead</li><li>Transparency (supply chain, materials) drove purchase intent</li><li>Scroll-driven storytelling outperformed static pages 3:1</li><li>Mobile was 74% of their existing traffic</li><li>Photography was premium — needed a canvas worthy of it</li></ul></div>
+        </div>
+      </div>
+      <div class="cs-section">
+        <h3>03 · Design Process</h3>
+        <div class="cs-process">
+          <div class="cs-step"><div class="cs-step-inner">Brand Strategy</div><span class="cs-arrow">→</span></div>
+          <div class="cs-step"><div class="cs-step-inner">Moodboard</div><span class="cs-arrow">→</span></div>
+          <div class="cs-step"><div class="cs-step-inner">Site Architecture</div><span class="cs-arrow">→</span></div>
+          <div class="cs-step"><div class="cs-step-inner">Interaction Design</div><span class="cs-arrow">→</span></div>
+          <div class="cs-step"><div class="cs-step-inner">Hi-Fi Prototype</div><span class="cs-arrow">→</span></div>
+          <div class="cs-step"><div class="cs-step-inner">Next.js Build</div><span class="cs-arrow">→</span></div>
+          <div class="cs-step"><div class="cs-step-inner">CMS + Launch</div></div>
+        </div>
+        <p style="margin-top:14px">I began with a 2-day brand immersion — studying Verde's fabrics, visiting their workshop, understanding their sourcing relationships. The visual language I developed was rooted in earth tones, organic textures, and generous white space. Every scroll animation was choreographed in Figma before a single line of code was written. The full site was built in Next.js with Framer Motion and integrated with Sanity CMS so the Verde team could update content independently.</p>
+      </div>
+      <div class="cs-section">
+        <h3>04 · Key Design Decisions</h3>
+        <div class="cs-cols">
+          <div class="cs-box"><h4>Scroll-Driven Storytelling</h4><p>The homepage is a linear narrative — from brand origin, to sourcing ethics, to craftsmanship, to the final product. Users scroll through a story, not a page. Average scroll depth reached 94%.</p></div>
+          <div class="cs-box"><h4>Material Transparency Module</h4><p>An interactive section letting users explore each fabric — origin country, environmental impact, certifications. This transparency feature alone drove a 340% increase in time on site.</p></div>
+          <div class="cs-box"><h4>Full-Bleed Editorial Layout</h4><p>Rejected conventional grid-based layouts in favour of full-bleed editorial compositions. Each product spread was treated as a magazine page — bold typography over immersive photography.</p></div>
+          <div class="cs-box"><h4>Performance Without Compromise</h4><p>Despite rich animations and large images, the site achieves a Lighthouse performance score of 94. Every image uses next-gen formats, lazy loading, and responsive art direction via Next.js Image.</p></div>
+        </div>
+      </div>
+      <div class="cs-section">
+        <h3>05 · Tech Stack</h3>
+        <div class="cs-stack"><span class="cs-pill">Next.js 14</span><span class="cs-pill">TypeScript</span><span class="cs-pill">Framer Motion</span><span class="cs-pill">Tailwind CSS</span><span class="cs-pill">Sanity CMS</span><span class="cs-pill">Figma</span><span class="cs-pill">Vercel</span><span class="cs-pill">Cloudinary</span></div>
+      </div>
+      <div class="cs-section">
+        <h3>06 · Results & Impact</h3>
+        <div class="cs-metrics">
+          <div class="cs-metric"><span class="cs-metric-num">3×</span><div class="cs-metric-label">Organic Traffic</div></div>
+          <div class="cs-metric"><span class="cs-metric-num">28%</span><div class="cs-metric-label">Email Conversion</div></div>
+          <div class="cs-metric"><span class="cs-metric-num">94%</span><div class="cs-metric-label">Scroll Depth</div></div>
+          <div class="cs-metric"><span class="cs-metric-num">94/100</span><div class="cs-metric-label">Lighthouse Score</div></div>
+          <div class="cs-metric"><span class="cs-metric-num">Awwwards</span><div class="cs-metric-label">Shortlisted</div></div>
+        </div>
+      </div>
+      <div class="cs-takeaway">A website is the first physical space a digital brand occupies. For Verde, the goal was never to build a website — it was to build a world. When design and development work at this level of craft, the result doesn't just represent a brand; it becomes the brand.</div>
+    </div>
+  </div>
+</div>
+
+<script>
+// Nav scroll
+const navbar=document.getElementById('navbar');
+window.addEventListener('scroll',()=>navbar.classList.toggle('scrolled',window.scrollY>50));
+
+// Mobile menu
+const ham=document.getElementById('ham');
+const menu=document.getElementById('mobileMenu');
+ham.addEventListener('click',()=>menu.classList.toggle('open'));
+document.querySelectorAll('.mob-link').forEach(l=>l.addEventListener('click',()=>menu.classList.remove('open')));
+
+// Scroll animations
+const obs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      e.target.classList.add('visible');
+      e.target.querySelectorAll('.bar-fill').forEach(b=>b.style.width=b.dataset.w+'%');
+    }
+  });
+},{threshold:.15});
+document.querySelectorAll('.fade-up').forEach(el=>obs.observe(el));
+
+// Contact form
+document.getElementById('submitBtn').addEventListener('click',function(){
+  const inputs=document.querySelectorAll('.contact-form input,.contact-form textarea');
+  let ok=true;inputs.forEach(i=>{if(!i.value.trim())ok=false});
+  if(ok){this.textContent='Sending...';setTimeout(()=>{this.style.display='none';document.getElementById('formSuccess').style.display='block';},1200);}
+});
+
+// Case study modals
+function openCS(id){
+  const el=document.getElementById('cs-'+id);
+  el.classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closeCS(id){
+  const el=document.getElementById('cs-'+id);
+  el.classList.remove('open');
+  document.body.style.overflow='';
+}
+// Close on backdrop click
+document.querySelectorAll('.cs-overlay').forEach(o=>{
+  o.addEventListener('click',e=>{if(e.target===o){o.classList.remove('open');document.body.style.overflow='';}});
+});
+// Close on Escape
+document.addEventListener('keydown',e=>{
+  if(e.key==='Escape')document.querySelectorAll('.cs-overlay.open').forEach(o=>{o.classList.remove('open');document.body.style.overflow='';});
+});
+</script>
+</body>
+</html>
